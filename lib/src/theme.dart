@@ -10,8 +10,7 @@ class PlayRightTheme {
   /// Standard `ThemeData` for PlayRight UI.
   static ThemeData get standard {
     return ThemeData(
-      colorScheme:
-          ColorScheme.fromSwatch(accentColor: PlayRightColors.primary),
+      colorScheme: ColorScheme.fromSwatch(accentColor: PlayRightColors.primary),
       appBarTheme: _appBarTheme,
       elevatedButtonTheme: _elevatedButtonTheme,
       outlinedButtonTheme: _outlinedButtonTheme,
@@ -147,7 +146,12 @@ class PlayRightTheme {
   }
 
   static AppBarTheme get _appBarTheme {
-    return const AppBarTheme(color: PlayRightColors.primary);
+    return AppBarTheme(
+      color: PlayRightColors.black,
+      titleTextStyle: PlayRightTextStyle.title.copyWith(
+        color: PlayRightColors.white,
+      ),
+    );
   }
 
   static ElevatedButtonThemeData get _elevatedButtonTheme {

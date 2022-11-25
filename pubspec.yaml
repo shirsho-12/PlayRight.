@@ -65,7 +65,8 @@ flutter:
   assets:
     - assets/images/
     - assets/fonts/
-    - assets/fonts/georgia
+    - fonts/Poppins/
+    - fonts/Gelasio/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -78,10 +79,21 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-     - family: Georgia
-       fonts:
-         - asset: assets/fonts/georgia/Georgia.ttf
+  # fonts:
+  #    - family: Georgia
+  #      fonts:
+  #        - asset: fonts/Georgia Regular font.ttf
+  #        - asset: fonts/GEORGIA4.TTF 
+  #        - asset: fonts/Georgia.ttf
+  #        - asset: fonts/Georgia Bold Italic font.ttf
+  #        - asset: fonts/Georgia bold italic.ttf
+  #        - asset: fonts/georgia bold.ttf
+  #        - asset: fonts/georgia italic.ttf
+  #        - asset: fonts/georgiab.ttf
+  #        - asset: fonts/georgiai.ttf
+  #        - asset: fonts/georgiaz.ttf
+  #        - asset: fonts/seriffic.ttf
+
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

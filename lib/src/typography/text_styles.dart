@@ -1,15 +1,19 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:play_right/src/colors.dart';
 import 'package:play_right/src/typography/typography.dart';
 import 'package:flutter/widgets.dart';
 
 /// PlayRight Text Style Definitions
 class PlayRightTextStyle {
-  static const _baseTextStyle = TextStyle(
-    package: 'app_ui',
-    fontFamily: 'OpenSans',
-    color: PlayRightColors.black,
-    fontWeight: PlayRightFontWeight.regular,
-  );
+  static get title {
+    return GoogleFonts.gelasio(
+      fontSize: 32,
+      fontWeight: FontWeight.w700,
+      color: PlayRightColors.white,
+    );
+  }
+
+  static final _baseTextStyle = GoogleFonts.poppins();
 
   /// Headline 1 Text Style
   static TextStyle get headline1 {

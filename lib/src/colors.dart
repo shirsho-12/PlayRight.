@@ -12,7 +12,7 @@ abstract class PlayRightColors {
   static const Color input = Color(0xFF000000);
 
   /// Black
-  static const Color black = Color(0xFF202124);
+  static const Color black = Color(0xFF000000);
 
   /// Black 54% opacity
   static const Color black54 = Color(0x8A000000);

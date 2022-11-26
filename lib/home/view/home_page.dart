@@ -1,0 +1,211 @@
+import 'package:flutter/material.dart';
+import 'package:play_right/app_ui.dart';
+import 'package:play_right/models/user.dart';
+import 'package:play_right/shared_widgets.dart';
+
+//TODO: Navigation to other pages - Drawer
+//TODO: Figure out a way to make the transparent buttons rounded
+
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    User user = User.dummy;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('PlayRight.',
+            style: PlayRightTextStyle.title, textAlign: TextAlign.center),
+        centerTitle: true,
+        // automaticallyImplyLeading: false,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: null,
+              accountName: Text(user.name),
+              accountEmail: Text(user.userName),
+              currentAccountPicture: const CircleAvatar(
+                // backgroundImage: NetworkImage(user.userAvatarLink),
+                backgroundImage: AssetImage('assets/images/account.png'),
+                backgroundColor: Colors.white,
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 16.0),
+              child: Text("TOOLS"),
+            ),
+            ListTile(
+              // dense: true,
+              leading: const Icon(Icons.lightbulb, color: Colors.black),
+              title: const Text(
+                'Prompt generator',
+              ),
+              horizontalTitleGap: 0,
+              minVerticalPadding: 0,
+              // minLeadingWidth: 12,
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.search, color: Colors.black),
+              title: const Text('Explore prompts'),
+              horizontalTitleGap: 0,
+              minVerticalPadding: 0,
+              visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.collections_bookmark_rounded,
+                  color: Colors.black),
+              title: const Text('Prompt Archive'),
+              horizontalTitleGap: 0,
+              minVerticalPadding: 0,
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            const Divider(
+              color: Colors.black,
+              indent: 12,
+              endIndent: 12,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 16.0, top: 8.0, bottom: 8.0),
+              child: Text("ABOUT"),
+            ),
+            ListTile(
+              title: const Text('About us'),
+              visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Help'),
+              visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Contact us'),
+              visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Privacy and security'),
+              visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+      body: Stack(
+        children: [
+          const Background(),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'How can we inspire you today?',
+                  style: PlayRightTextStyle.headline5,
+                ),
+                const SizedBox(height: 30),
+                const HomeButton(
+                  imagePath: 'assets/images/generate.png',
+                  headLine: "Generate a prompt\n",
+                  caption: "Customize your prompt using keywords",
+                  nextPage: '/prompt',
+                ),
+                const HomeButton(
+                  imagePath: 'assets/images/generate.png',
+                  headLine: "Explore Prompts\n",
+                  caption: "Get inspired by our idea catelogue",
+                  nextPage: '/explore',
+                ),
+                const HomeButton(
+                  imagePath: 'assets/images/generate.png',
+                  headLine: "Idea Bank\n",
+                  caption: "View your previous prompt collection",
+                  nextPage: '/idea_bank',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class HomeButton extends StatelessWidget {
+  const HomeButton({
+    Key? key,
+    required this.imagePath,
+    required this.headLine,
+    required this.caption,
+    required this.nextPage,
+  }) : super(key: key);
+  final String imagePath;
+  final String headLine;
+  final String caption;
+  final String nextPage;
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width * 0.9;
+    double height = MediaQuery.of(context).size.height * 0.9;
+    return SizedBox(
+      width: width,
+      height: height / 4,
+      child: Container(
+        decoration: const FooDecoration(),
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, nextPage);
+          },
+          style: ButtonStyle(
+            elevation: MaterialStateProperty.all(0),
+            backgroundColor:
+                MaterialStateProperty.all<Color>(PlayRightColors.transparent),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image(
+                image: AssetImage(imagePath),
+              ),
+              RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                      text: headLine,
+                      style: PlayRightTextStyle.title.copyWith(
+                        color: PlayRightColors.accent,
+                        fontSize: 24.0,
+                        fontWeight: PlayRightFontWeight.regular,
+                      ),
+                      children: [
+                        TextSpan(
+                            text: caption,
+                            style: PlayRightTextStyle.caption
+                                .copyWith(color: PlayRightColors.black)),
+                      ]))
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -8,7 +8,7 @@ class PlayRightTextStyle {
   static get title {
     return GoogleFonts.gelasio(
       fontSize: 32,
-      fontWeight: FontWeight.w700,
+      // fontWeight: FontWeight.w700,
       color: PlayRightColors.white,
     );
   }

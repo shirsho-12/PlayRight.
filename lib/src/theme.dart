@@ -21,6 +21,8 @@ class PlayRightTheme {
       bottomSheetTheme: _bottomSheetTheme,
       tabBarTheme: _tabBarTheme,
       dividerTheme: _dividerTheme,
+      primaryColor: PlayRightColors.primary,
+      iconTheme: _iconTheme,
     );
   }
 
@@ -185,7 +187,7 @@ class PlayRightTheme {
   static TooltipThemeData get _tooltipTheme {
     return const TooltipThemeData(
       decoration: BoxDecoration(
-        color: PlayRightColors.charcoal,
+        color: PlayRightColors.black,
         borderRadius: BorderRadius.all(Radius.circular(5)),
       ),
       padding: EdgeInsets.all(10),
@@ -229,6 +231,12 @@ class PlayRightTheme {
       space: 0,
       thickness: 1,
       color: PlayRightColors.black25,
+    );
+  }
+
+  static IconThemeData get _iconTheme {
+    return const IconThemeData(
+      color: PlayRightColors.input,
     );
   }
 }

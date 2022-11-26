@@ -115,7 +115,7 @@ class PlayRightTextStyle {
   static TextStyle get button {
     return _baseTextStyle.copyWith(
       fontSize: 18,
-      fontWeight: PlayRightFontWeight.medium,
+      fontWeight: PlayRightFontWeight.bold,
     );
   }
 }

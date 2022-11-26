@@ -3,13 +3,13 @@ import 'package:flutter/widgets.dart';
 /// Defines the color palette for the PlayRight UI.
 abstract class PlayRightColors {
   // accent
-  static const Color accent = Color(0xDE6B48FF);
+  static const Color accent = Color(0xFFDE6B48);
 
-  static const Color inactive = Color(0xEAEAEAFF);
+  static const Color inactive = Color(0xFFEAEAEA);
 
-  static const Color subtext = Color(0x484848FF);
+  static const Color subtext = Color(0xFF484848);
 
-  static const Color input = Color(0x000000FF);
+  static const Color input = Color(0xFF000000);
 
   /// Black
   static const Color black = Color(0xFF202124);
@@ -36,7 +36,7 @@ abstract class PlayRightColors {
   static const Color transparent = Color(0x00000000);
 
   /// Primary
-  static const Color primary = Color(0xFF0000FF);
+  static const Color primary = input;
 
   /// Secondary
   static const Color secondary = Color(0xFFFB5246);

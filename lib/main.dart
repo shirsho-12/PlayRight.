@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:play_right/routes.dart';
 import 'app_ui.dart';
+import 'auth/auth.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider<AuthBloc>(
+      create: (context) => AuthBloc(),
+    ),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,11 +21,8 @@ class MyApp extends StatelessWidget {
       title: 'PlayRight',
       theme: PlayRightTheme.standard,
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('PlayRight.', style: PlayRightTextStyle.title),
-        ),
-      ),
+      initialRoute: RouteGenerator.loginPage,
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

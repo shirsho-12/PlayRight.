@@ -159,10 +159,12 @@ class PlayRightTheme {
       style: ElevatedButton.styleFrom(
         elevation: 0,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(30)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
-        primary: PlayRightColors.primary,
-        fixedSize: const Size(208, 54),
+        primary: PlayRightColors.accent,
+        onSurface: PlayRightColors.inactive,
+        fixedSize: const Size(400, 54),
+        // textStyle: PlayRightTextStyle.button,
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:play_right/app_ui.dart';
+import 'package:play_right/home/data/gpt_3.dart';
 import 'package:play_right/models/prompt.dart';
 import 'package:play_right/models/user.dart';
 import 'package:play_right/shared_widgets.dart';
@@ -27,6 +28,8 @@ class _PromptPageState extends State<PromptPage> {
     double pad = 16.0;
     double width = MediaQuery.of(context).size.width - pad * 2;
     double height = MediaQuery.of(context).size.height * 0.9;
+
+    List<String> outputs = [];
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -75,9 +78,14 @@ class _PromptPageState extends State<PromptPage> {
                           child: SizedBox(
                             width: width / 2.25,
                             child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (_textController.text.isNotEmpty) {
                                   devtools.log("Generating prompt...");
+                                  outputs =
+                                      await promptTexts(_textController.text);
+                                  for (var output in outputs) {
+                                    devtools.log(output);
+                                  }
                                   setState(() {
                                     _onSubmit = true;
                                   });

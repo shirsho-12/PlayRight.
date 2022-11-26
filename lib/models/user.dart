@@ -17,6 +17,15 @@ class User {
   /// Creates a User from Json map
   factory User.fromJson(Map<String, dynamic> data) => _$UserFromJson(data);
 
+  factory User.fromAppWrite(Map<String, dynamic> data) {
+    return User(
+      userName: data['name'],
+      userAvatarLink: data['userAvatarLink'],
+      name: data['name'],
+      archive: data['archive'],
+    );
+  }
+
   /// A description for userName
   final String userName;
 

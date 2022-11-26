@@ -1,10 +1,31 @@
 part of 'auth_bloc.dart';
 
+@immutable
 abstract class AuthEvent {
   const AuthEvent();
 }
 
-/// {@template custom_auth_event}
-/// Event added when some custom logic happens
-/// {@endtemplate}
-class CustomAuthEvent extends AuthEvent {}
+class AuthEventInitialize extends AuthEvent {
+  const AuthEventInitialize();
+}
+
+class AuthEventLogIn extends AuthEvent {
+  final String email;
+  final String password;
+  const AuthEventLogIn(this.email, this.password);
+}
+
+class AuthEventRegister extends AuthEvent {
+  final String userName;
+  final String email;
+  final String password;
+  const AuthEventRegister(this.userName, this.email, this.password);
+}
+
+class AuthEventShouldRegister extends AuthEvent {
+  const AuthEventShouldRegister();
+}
+
+class AuthEventLogOut extends AuthEvent {
+  const AuthEventLogOut();
+}

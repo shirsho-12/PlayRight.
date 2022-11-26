@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:play_right/routes.dart';
 import 'app_ui.dart';
-import 'auth/auth.dart';
+// import 'home/data/gpt_3.dart';
+// import 'dart:developer' as devtools show log;
 
-void main() {
-  runApp(MultiBlocProvider(providers: [
-    BlocProvider<AuthBloc>(
-      create: (context) => AuthBloc(),
-    ),
-  ], child: const MyApp()));
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // List<String> promptList = await promptTexts('a historical fantasy adventure');
+  // for (var prompt in promptList) {
+  // devtools.log(prompt);
+  // }
+
+  // runApp(MultiBlocProvider(providers: [
+  // BlocProvider<AuthBloc>(
+  // create: (context) => AuthBloc(AppWriteAuthProvider()),
+  // ),
+  // ], child: const MyApp()));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

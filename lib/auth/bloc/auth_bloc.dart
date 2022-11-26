@@ -1,19 +1,61 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart' show immutable;
+import 'package:play_right/models/user.dart';
+
+import '../auth_provider.dart';
+import 'dart:developer' as devtools show log;
+
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(const AuthInitial()) {
-    on<CustomAuthEvent>(_onCustomAuthEvent);
-  }
+  AuthBloc(AuthProvider provider) : super(const AuthStateUninitialized()) {
+    // initialize
+    on<AuthEventInitialize>((event, emit) async {
+      await provider.initialize();
+      final user = await provider.currentUser;
+      devtools.log(user.toString());
+      if (user == null) {
+        emit(const AuthStateLoggedOut());
+      } else {
+        emit(AuthStateLoggedIn(user: user));
+      }
+    });
 
-  FutureOr<void> _onCustomAuthEvent(
-    CustomAuthEvent event,
-    Emitter<AuthState> emit,
-  ) {
-    // TODO: Add Logic
+    // log in
+    on<AuthEventLogIn>((event, emit) async {
+      emit(const AuthStateLoggedOut());
+      // await Future.delayed(const Duration(seconds: 3));
+      final email = event.email;
+      final password = event.password;
+      try {
+        final user = await provider.logIn(email: email, password: password);
+        emit(AuthStateLoggedIn(user: user));
+      } on Exception {
+        emit(const AuthStateLoggedOut());
+      }
+    });
+
+    // register
+    on<AuthEventRegister>((event, emit) async {
+      final email = event.email;
+      final password = event.password;
+      final userName = event.userName;
+      devtools.log("O1");
+      try {
+        await provider.createUser(
+            userName: userName, email: email, password: password);
+        devtools.log(provider.currentUser.toString());
+        provider.logOut();
+        emit(const AuthStateRegistering());
+      } on Exception catch (e) {
+        devtools.log(e.toString());
+        emit(const AuthStateLoggedOut());
+      }
+    });
+
+    on<AuthEventShouldRegister>((event, emit) async {
+      emit(const AuthStateRegistering());
+    });
   }
 }

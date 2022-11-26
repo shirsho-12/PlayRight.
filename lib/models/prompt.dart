@@ -1,5 +1,3 @@
-
-
 part 'prompt.g.dart';
 
 /// {@template prompt}
@@ -7,7 +5,7 @@ part 'prompt.g.dart';
 /// {@endtemplate}
 class Prompt {
   /// {@macro prompt}
-  const Prompt({ 
+  const Prompt({
     required this.time,
     required this.promptText,
     required this.promptResults,
@@ -18,13 +16,32 @@ class Prompt {
 
   /// A description for time
   final DateTime time;
+
   /// A description for promptText
   final String promptText;
+
   /// A description for promptResults
   final List<String> promptResults;
 
+  static final dummy = Prompt(
+    time: DateTime.now(),
+    promptText: 'A historical fantasy adventure',
+    promptResults: [
+      'The quick brown fox jumps over the lazy dog',
+      'Humpty Dumpty had a great fall',
+      'Row row row your boat gently down the stream'
+    ],
+  );
+  static List<String> presetData(String prompt) {
+    return [
+      'The quick brown fox jumps over the lazy dog',
+      'Humpty Dumpty had a great fall',
+      'Row row row your boat gently down the stream'
+    ];
+  }
+
   /// Creates a copy of the current Prompt with property changes
-  Prompt copyWith({ 
+  Prompt copyWith({
     DateTime? time,
     String? promptText,
     List<String>? promptResults,
@@ -35,7 +52,7 @@ class Prompt {
       promptResults: promptResults ?? this.promptResults,
     );
   }
-  
+
   /// Creates a Json map from a Prompt
   Map<String, dynamic> toJson() => _$PromptToJson(this);
 }

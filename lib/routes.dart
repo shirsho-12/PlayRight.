@@ -26,9 +26,9 @@ class RouteGenerator {
       case homePage:
         return MaterialPageRoute(builder: (_) => const HomePage());
       case promptPage:
-      // return MaterialPageRoute(builder: (_) => const PromptPage());
+        return MaterialPageRoute(builder: (_) => const PromptPage());
       case explorePage:
-      // return MaterialPageRoute(builder: (_) => const ExplorePage());
+        return MaterialPageRoute(builder: (_) => const ExplorePage());
       case ideaBankPage:
       // return MaterialPageRoute(builder: (_) => const IdeaBankPage());
 

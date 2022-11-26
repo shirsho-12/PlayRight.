@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
                   imagePath: 'assets/images/generate.png',
                   headLine: "Idea Bank\n",
                   caption: "View your previous prompt collection",
-                  nextPage: '/idea_bank',
+                  nextPage: '/idea-bank',
                 ),
               ],
             ),

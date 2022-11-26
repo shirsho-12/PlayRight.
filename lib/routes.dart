@@ -30,7 +30,7 @@ class RouteGenerator {
       case explorePage:
         return MaterialPageRoute(builder: (_) => const ExplorePage());
       case ideaBankPage:
-      // return MaterialPageRoute(builder: (_) => const IdeaBankPage());
+        return MaterialPageRoute(builder: (_) => const IdeaBankPage());
 
       default:
         return MaterialPageRoute(

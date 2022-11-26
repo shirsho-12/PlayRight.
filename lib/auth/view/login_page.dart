@@ -44,7 +44,8 @@ class _LoginPageState extends State<LoginPage> {
             child: SizedBox(
               width: width * 0.8,
               height: height * 0.8,
-              child: Column(
+              child: Flex(
+                direction: Axis.vertical,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   RichText(
@@ -140,7 +141,13 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_isEnabled) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/home', (Route<dynamic> route) => false);
+                      }
+                    },
                     style: _isEnabled
                         ? PlayRightButtonStyle.enabled
                         : PlayRightButtonStyle.disabled,

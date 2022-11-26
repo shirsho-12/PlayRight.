@@ -126,7 +126,7 @@ Drawer playRightDrawer(User user, BuildContext context) {
           minVerticalPadding: 0,
           // minLeadingWidth: 12,
           onTap: () {
-            Navigator.pop(context);
+            Navigator.popAndPushNamed(context, '/prompt');
           },
         ),
         ListTile(
@@ -136,7 +136,7 @@ Drawer playRightDrawer(User user, BuildContext context) {
           minVerticalPadding: 0,
           visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
           onTap: () {
-            Navigator.pop(context);
+            Navigator.popAndPushNamed(context, '/explore');
           },
         ),
         ListTile(
@@ -146,7 +146,7 @@ Drawer playRightDrawer(User user, BuildContext context) {
           horizontalTitleGap: 0,
           minVerticalPadding: 0,
           onTap: () {
-            Navigator.pop(context);
+            Navigator.popAndPushNamed(context, '/idea-bank');
           },
         ),
         const Divider(
@@ -244,5 +244,16 @@ class UnorderedListItem extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+extension TitleCase on String {
+  String toTitleCase() {
+    return toLowerCase().replaceAllMapped(
+        RegExp(
+            r'[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+'),
+        (Match match) {
+      return "${match[0]![0].toUpperCase()}${match[0]!.substring(1).toLowerCase()}";
+    }).replaceAll(RegExp(r'(_|-)+'), ' ');
   }
 }

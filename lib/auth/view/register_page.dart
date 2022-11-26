@@ -47,8 +47,12 @@ class _RegisterPageState extends State<RegisterPage> {
             child: SizedBox(
               width: width * 0.8,
               height: height * 0.8,
-              child: Column(
+              child: Flex(
+                direction: Axis.vertical,
                 mainAxisAlignment: MainAxisAlignment.center,
+
+                // child: Column(
+                //   mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   RichText(
                       textAlign: TextAlign.center,
@@ -183,7 +187,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_isEnabled) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/', (Route<dynamic> route) => false);
+                      }
+                    },
                     style: _isEnabled
                         ? PlayRightButtonStyle.enabled
                         : PlayRightButtonStyle.disabled,
@@ -192,6 +202,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
             ),
+            // ),
           ),
         ],
       ),

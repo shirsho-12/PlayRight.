@@ -32,10 +32,31 @@ class User {
   /// Creates a Json map from a User
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
-  static const dummy = User(
+  static final dummy = User(
     userName: '@rachelsmith1234',
     userAvatarLink: '',
     name: 'Rachel Smith',
-    archive: [],
+    archive: [
+      Prompt(
+          time: DateTime.parse('2022-07-15'),
+          promptText: "School Play Ideas",
+          promptResults: Prompt.presetData("")),
+      Prompt(
+          time: DateTime.parse('2022-07-18'),
+          promptText: "Personal project",
+          promptResults: Prompt.presetData("")),
+      Prompt(
+          time: DateTime.parse('2022-07-20'),
+          promptText: "Retro Pop Culture",
+          promptResults: Prompt.presetData("")),
+      Prompt(
+          time: DateTime.parse('2022-08-01'),
+          promptText: "Christmas Concert",
+          promptResults: Prompt.presetData("")),
+      Prompt(
+          time: DateTime.parse('2022-08-12'),
+          promptText: "Fantasy Adventure",
+          promptResults: Prompt.presetData("")),
+    ],
   );
 }

@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'PlayRight',
       theme: PlayRightTheme.standard,
       debugShowCheckedModeBanner: false,
-      initialRoute: RouteGenerator.homePage,
+      initialRoute: RouteGenerator.landingPage,
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

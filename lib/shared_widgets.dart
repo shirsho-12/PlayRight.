@@ -1,8 +1,11 @@
+import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 
 import 'app_ui.dart';
-import 'models/prompt.dart';
+import 'home/data/gpt_3.dart';
 import 'models/user.dart';
+import 'dart:developer' as devtools show log;
 
 class PlayRightAppBar extends StatelessWidget {
   const PlayRightAppBar({Key? key}) : super(key: key);
@@ -195,33 +198,81 @@ class PromptDialog extends StatelessWidget {
   const PromptDialog({Key? key, required this.name}) : super(key: key);
   final String name;
 
+  Future<List<String>> _getPromptStrings() async {
+    Client client = Client();
+    client
+        .setEndpoint('http://159.65.219.151/v1')
+        .setProject('playright123')
+        .setSelfSigned(status: true);
+    final databases = Databases(client);
+
+    try {
+      DocumentList documents = await databases.listDocuments(
+          databaseId: 'saved_prompts',
+          collectionId: 'prompt_collection',
+          queries: [Query.equal('prompt', name)]);
+      for (Document document in documents.documents) {
+        print(document.data);
+      }
+
+      if (documents.documents.isEmpty ||
+          documents.documents.first.data['prompt_text'] == 0) {
+        final List<String> prompts =
+            await promptTexts("Give me ideas for a new $name story.");
+        final document = databases.createDocument(
+            databaseId: 'saved_prompts',
+            collectionId: 'prompt_collection',
+            documentId: ID.unique(),
+            data: {
+              'prompt': name,
+              'prompt_text': prompts,
+            });
+        return prompts;
+      } else {
+        return documents.documents.first.data['prompt_text'];
+      }
+    } on AppwriteException catch (e) {
+      devtools.log(e.toString());
+      return [];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    final List<String> namePrompts = Prompt.presetData(name);
-    return SizedBox(
-        width: width / 2,
-        height: height / 3,
-        child: ListView.builder(
-            itemCount: namePrompts.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text("• ",
-                        style: PlayRightTextStyle.bodyText1
-                            .copyWith(color: Colors.black)),
-                    Expanded(
-                      child: Text(namePrompts[index],
-                          style: PlayRightTextStyle.bodyText1
-                              .copyWith(color: Colors.black)),
-                    ),
-                  ],
-                ),
-              );
-            }));
+    // final List<String> namePrompts = promptTexts(name);
+    return FutureBuilder<List<String>>(
+        future: promptTexts("Give me ideas for a new $name story."),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return SizedBox(
+                width: width / 2,
+                height: height / 3,
+                child: ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("• ",
+                                style: PlayRightTextStyle.bodyText1
+                                    .copyWith(color: Colors.black)),
+                            Expanded(
+                              child: Text(
+                                  snapshot.data![index].replaceAll("\n", ''),
+                                  style: PlayRightTextStyle.bodyText1
+                                      .copyWith(color: Colors.black)),
+                            ),
+                          ],
+                        ),
+                      );
+                    }));
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        });
   }
 }
 

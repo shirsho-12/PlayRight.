@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:play_right/app_ui.dart';
-import 'package:play_right/auth/appwrite_auth_provider.dart';
 
 //TODO: IsEnabled has to be improved, is not responsive enough -> needs BLoC
 
@@ -17,8 +16,6 @@ class _LoginPageState extends State<LoginPage> {
   bool _isEnabled = false;
   bool _isUserNameIconVisible = false;
   bool _isPasswordIconVisible = false;
-
-  final AppWriteAuthProvider _authProvider = AppWriteAuthProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -145,10 +142,6 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      final String email = _emailController.text;
-                      final String password = _passwordController.text;
-                      _authProvider.logIn(email: email, password: password);
-
                       if (_isEnabled) {
                         FocusManager.instance.primaryFocus?.unfocus();
                         Navigator.of(context).pushNamedAndRemoveUntil(

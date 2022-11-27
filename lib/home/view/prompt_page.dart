@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import 'package:play_right/app_ui.dart';
 import 'package:play_right/home/data/gpt_3.dart';
-import 'package:play_right/models/prompt.dart';
 import 'package:play_right/models/user.dart';
 import 'package:play_right/shared_widgets.dart';
 
@@ -21,15 +20,13 @@ class _PromptPageState extends State<PromptPage> {
   final _textController = TextEditingController();
   bool _isEnabled = false;
   bool _onSubmit = false;
-
+  List<String> outputs = [];
   @override
   Widget build(BuildContext context) {
     User user = User.dummy;
     double pad = 16.0;
     double width = MediaQuery.of(context).size.width - pad * 2;
     double height = MediaQuery.of(context).size.height * 0.9;
-
-    List<String> outputs = [];
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -81,14 +78,22 @@ class _PromptPageState extends State<PromptPage> {
                               onPressed: () async {
                                 if (_textController.text.isNotEmpty) {
                                   devtools.log("Generating prompt...");
-                                  outputs =
-                                      await promptTexts(_textController.text);
-                                  for (var output in outputs) {
-                                    devtools.log(output);
-                                  }
-                                  setState(() {
-                                    _onSubmit = true;
-                                  });
+                                  promptTexts(_textController.text)
+                                      .then((value) => setState(
+                                            () {
+                                              outputs = value;
+                                              _onSubmit = true;
+                                            },
+                                          ));
+                                  // setState(() {
+                                  //   outputs = modelOuts;
+                                  // });
+                                  // for (var output in outputs) {
+                                  //   devtools.log(output);
+                                  // }
+                                  // setState(() {
+                                  //   _onSubmit = true;
+                                  // });
                                 }
                               },
                               style: _isEnabled
@@ -103,7 +108,11 @@ class _PromptPageState extends State<PromptPage> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                _onSubmit ? const PromptCard() : const SizedBox(),
+                _onSubmit
+                    ? PromptCard(
+                        promptResults: outputs,
+                      )
+                    : const SizedBox(),
                 const SizedBox(height: 30),
                 _onSubmit
                     ? Container(
@@ -185,11 +194,11 @@ class _PromptPageState extends State<PromptPage> {
 }
 
 class PromptCard extends StatelessWidget {
-  const PromptCard({Key? key}) : super(key: key);
+  const PromptCard({required this.promptResults, Key? key}) : super(key: key);
+  final List<String> promptResults;
 
   @override
   Widget build(BuildContext context) {
-    Prompt prompt = Prompt.dummy;
     double pad = 16.0;
     double width = MediaQuery.of(context).size.width - pad * 2;
     double height = MediaQuery.of(context).size.height * 0.35;
@@ -210,10 +219,12 @@ class PromptCard extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(pad),
             child: ListView.builder(
-                itemCount: prompt.promptResults.length,
+                itemCount: promptResults.length,
                 itemBuilder: (context, index) {
+                  devtools.log(promptResults[index]);
                   return ListTile(
-                    title: UnorderedListItem(text: prompt.promptResults[index]),
+                    title: UnorderedListItem(
+                        text: promptResults[index].replaceAll('\n', '')),
                   );
                 }),
           ),

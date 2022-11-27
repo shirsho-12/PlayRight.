@@ -2,15 +2,11 @@
 
 PlayRight. The universal art unblocker for your creative needs.
 
-## Getting Started
+## Tech Stack
 
-This project is a starting point for a Flutter application.
+- Flutter/Dart 
+- Figma for Front-end design and wireframing
+- AppWrite Backend
+- Docker + DigitalOcean to host AppWrite container
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+https://www.figma.com/file/TSm9wfWl2PD4qjz9Yk8pM7/PlayRight?node-id=0%3A1&t=KTMqEJweOcE8VxOt-1

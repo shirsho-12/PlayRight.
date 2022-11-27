@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:openai_gpt3_api/openai_gpt3_api.dart';
 import 'package:play_right/api_key.dart';
 
@@ -20,10 +21,20 @@ class PromptModel {
     List<String> outputs = response.choices.map((e) => e.text).toList();
     return outputs;
   }
+
+//   Future<List<NetworkImage>> getImagePrompt(String prompt) async {
+//     api.
+//   }
 }
 
 Future<List<String>> promptTexts(String prompt) async {
   final promptModel = PromptModel();
   final promptTexts = await promptModel.getPrompt(prompt);
   return promptTexts;
+}
+
+Future<List<Image>> promptImages(String prompt) async {
+  final promptModel = PromptModel();
+  final promptTexts = await promptModel.getPrompt(prompt);
+  return promptTexts.map((e) => Image.network(e)).toList();
 }

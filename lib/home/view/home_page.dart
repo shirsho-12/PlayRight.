@@ -35,13 +35,13 @@ class HomePage extends StatelessWidget {
                   nextPage: '/prompt',
                 ),
                 const HomeButton(
-                  imagePath: 'assets/images/generate.png',
+                  imagePath: 'assets/images/explore.png',
                   headLine: "Explore Prompts\n",
                   caption: "Get inspired by our idea catelogue",
                   nextPage: '/explore',
                 ),
                 const HomeButton(
-                  imagePath: 'assets/images/generate.png',
+                  imagePath: 'assets/images/idea_bank.png',
                   headLine: "Idea Bank\n",
                   caption: "View your previous prompt collection",
                   nextPage: '/idea-bank',

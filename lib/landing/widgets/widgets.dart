@@ -30,8 +30,7 @@ class TitleWidget extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                          text:
-                              "The universal art unblocker for \n your creative needs.",
+                          text: "Unblock your creative flow.",
                           style: PlayRightTextStyle.headline5),
                     ]))
           ])),
